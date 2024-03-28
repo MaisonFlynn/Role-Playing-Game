@@ -1,4 +1,4 @@
-﻿namespace Game
+namespace Game
 {
     public class GameMenu
     {
@@ -660,6 +660,10 @@
                 Console.Write("Wins!");
                 Console.WriteLine();
             }
+
+            // Reset Health
+            characters[playerIndex].ResetHealth();
+            characters[opponentIndex].ResetHealth();
         }    
 
         private int Damage(Character attack, Character defend, Ability ability)
@@ -677,7 +681,7 @@
                 attack.type == "Grass" && defend.type == "Water")
             {
                 effective = 1.5; // Super Effective
-                miss += 5; // 15% Chance TO Miss
+                miss += 5.0; // 15% Chance TO Miss
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine("Super Effective!");
                 Console.ResetColor();
@@ -687,7 +691,7 @@
                      attack.type == "Water" && defend.type == "Grass")
             {
                 effective = 0.5; // NOT Effective
-                miss -= 5; // 5% Chance TO Miss
+                miss -= 5.0; // 5% Chance TO Miss
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine("NOT Effective!");
                 Console.ResetColor();
@@ -710,7 +714,7 @@
             if (attack.type == "Normal")
             {
                 Random random = new Random();
-                bool crit = random.Next(100) < 20; // 20% Chance TO Crit
+                bool crit = random.Next(100) < 15; // 15% Chance TO Crit
                 if (crit)
                 {
                     damage = (int)(damage * 1.5);
