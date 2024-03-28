@@ -396,12 +396,6 @@ namespace Game
 
             for (int i = 0; i < characters.Count; i++)
             {
-                // Add Space Above Subsequent Characters FOR Readability
-                if (i > 0) // Check IF IT'S NOT First Character
-                {
-                    Console.WriteLine(); // Space
-                }
-
                 // [Name] [Type] [Health] [Level]
                 Character character = characters[i];
                 Console.Write($"{character.name} "); // Name
@@ -469,7 +463,6 @@ namespace Game
             DisplayAllCharacters();
 
             // Player
-            Console.WriteLine(); // Space
             Console.Write("Choose YOUR Character: ");
             string player = Console.ReadLine();
             int playerIndex = -1;
@@ -503,21 +496,27 @@ namespace Game
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.Write($"{characters[playerIndex].name} ");
             Console.ResetColor();
-            TypeColor(characters[playerIndex].type); // Console Foreground Color(s)
-            Console.Write($"[{characters[playerIndex].type}] "); // Type
-            Console.ResetColor(); // Reset Console Foreground Color(s)
+            TypeColor(characters[playerIndex].type);
+            Console.Write($"[{characters[playerIndex].type}] ");
+            Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.Write($"[HP {characters[playerIndex].health}]");
+            Console.Write($"[HP {characters[playerIndex].health}] ");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write($"[LV {characters[playerIndex].level}]");
             Console.ResetColor();
             Console.Write(" VS ");
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.Write($"{characters[opponentIndex].name} ");
             Console.ResetColor();
-            TypeColor(characters[opponentIndex].type); // Console Foreground Color(s)
-            Console.Write($"[{characters[opponentIndex].type}] "); // Type
-            Console.ResetColor(); // Reset Console Foreground Color(s)
+            TypeColor(characters[opponentIndex].type);
+            Console.Write($"[{characters[opponentIndex].type}] ");
+            Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.Write($"[HP {characters[opponentIndex].health}]");
+            Console.Write($"[HP {characters[opponentIndex].health}] ");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write($"[LV {characters[opponentIndex].level}]");
             Console.ResetColor();
             Console.WriteLine(); // Space
 
@@ -546,6 +545,11 @@ namespace Game
                 if (first)
                 {
                     // Player's Turn
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.Write($"{characters[playerIndex].name}'s ");
+                    Console.ResetColor();
+                    Console.Write("Turn");
+                    Console.WriteLine();
                     Console.WriteLine("Abilities");
                     for (int i = 0; i < characters[playerIndex].abilities.Count; i++)
                     {
@@ -566,15 +570,15 @@ namespace Game
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.Write($"{characters[playerIndex].name} ");
                     Console.ResetColor();
-                    Console.Write($"Used {characters[playerIndex].abilities[option].abilityName} ");
+                    Console.Write($"Cast {characters[playerIndex].abilities[option].abilityName} ");
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.Write($"[LV {characters[playerIndex].abilities[option].abilityLevel}] ");
                     Console.ResetColor();
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.Write($"[DMG {damage}]");
                     Console.ResetColor();
-                    Console.WriteLine() ;
-                    
+                    Console.WriteLine();
+
                     // IF Opponent Faints
                     if (characters[opponentIndex].health <= 0)
                     {
@@ -591,6 +595,11 @@ namespace Game
                 else
                 {
                     // Opponent's Turn
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.Write($"{characters[opponentIndex].name}'s ");
+                    Console.ResetColor();
+                    Console.Write("Turn");
+                    Console.WriteLine();
                     int abilityIndex = random.Next(characters[opponentIndex].abilities.Count);
                     int damage = Damage(characters[opponentIndex], characters[playerIndex], characters[opponentIndex].abilities[abilityIndex]);
 
@@ -601,7 +610,7 @@ namespace Game
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.Write($"{characters[opponentIndex].name} ");
                     Console.ResetColor();
-                    Console.Write($"Used {characters[opponentIndex].abilities[abilityIndex].abilityName} ");
+                    Console.Write($"Cast {characters[opponentIndex].abilities[abilityIndex].abilityName} ");
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.Write($"[LV {characters[opponentIndex].abilities[abilityIndex].abilityLevel}] ");
                     Console.ResetColor();
@@ -664,7 +673,7 @@ namespace Game
             // Reset Health
             characters[playerIndex].ResetHealth();
             characters[opponentIndex].ResetHealth();
-        }    
+        }
 
         private int Damage(Character attack, Character defend, Ability ability)
         {
