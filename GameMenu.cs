@@ -707,7 +707,6 @@ namespace Game
                 return 0; // N0 Damage IF Missed
             }
 
-
             int damage = (int)(baseDamage * effective);
 
             // Crit Chance (Normal Type ONLY)
