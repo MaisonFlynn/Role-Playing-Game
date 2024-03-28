@@ -19,7 +19,7 @@ namespace Game
 
         private int CalculateHealth(int level)
         {
-            return 1 + (level - 2) * 20;
+            return 100 + (level - 1) * 20;
         }
 
         public void ResetHealth()
