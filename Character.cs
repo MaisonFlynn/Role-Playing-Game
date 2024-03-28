@@ -1,4 +1,4 @@
-﻿namespace Game
+namespace Game
 {
     public class Character
     {
@@ -13,8 +13,18 @@
             name = characterName;
             type = characterType;
             level = characterLevel;
-            health = 100 + (level - 1) * 20; // Calculate Health Based ON Level
+            health = CalculateHealth(level); // Calculate Health Based ON Level
             abilities = new List<Ability>();
+        }
+
+        private int CalculateHealth(int level)
+        {
+            return 1 + (level - 2) * 20;
+        }
+
+        public void ResetHealth()
+        {
+            health = CalculateHealth(level);
         }
 
         public void AddAbility(string abilityName, int abilityLevel)
