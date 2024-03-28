@@ -559,8 +559,29 @@ namespace Game
                         Console.ResetColor();
                         Console.WriteLine(); // NEW Line
                     }
-                    Console.Write("Enter Option: ");
-                    int option = int.Parse(Console.ReadLine()) - 1;
+
+                    int option = -1; // Initialize Invalid
+
+                    while (option < 0 || option >= characters[playerIndex].abilities.Count)
+                    {
+                        Console.Write("Enter Option: ");
+                        string input = Console.ReadLine();
+
+                        // Validity
+                        if (int.TryParse(input, out int result))
+                        {
+                            option = result - 1; // Zero-Based
+                            // Valid
+                            if (option >= 0 && option < characters[playerIndex].abilities.Count)
+                            {
+                                break;
+                            }
+                        }
+
+                        // Invalid
+                        Console.WriteLine("Invalid Option, Please Try Again");
+                    }
+
                     int damage = Damage(characters[playerIndex], characters[opponentIndex], characters[playerIndex].abilities[option]);
 
                     // Apply Damage TO Opponent's Health
