@@ -699,7 +699,7 @@ namespace Game
         private int Damage(Character attack, Character defend, Ability ability)
         {
             // Base Damage
-            int baseDamage = ability.abilityLevel * 10;
+            int baseDamage = ability.abilityLevel * 10; // [LV 2] = [DMG 20]
 
             // Base Miss Chance
             double miss = 10.0; // 10% Chance TO Miss
@@ -727,7 +727,10 @@ namespace Game
                 Console.ResetColor();
             }
 
-            // Calculate Miss Chance
+            // Damage Calculation
+            int damage = (int)(baseDamage * effective);
+
+            // Miss
             Random rnd = new Random();
             if (rnd.Next(100) < miss)
             {
@@ -737,9 +740,7 @@ namespace Game
                 return 0; // N0 Damage IF Missed
             }
 
-            int damage = (int)(baseDamage * effective);
-
-            // Crit Chance (Normal Type ONLY)
+            // Crit Chance [Normal]
             if (attack.type == "Normal")
             {
                 Random random = new Random();
